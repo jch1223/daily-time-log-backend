@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 var express = require("express");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
@@ -6,6 +8,8 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 var app = express();
+
+require("./database/connection");
 
 app.use(logger("dev"));
 app.use(express.json());
