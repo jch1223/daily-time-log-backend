@@ -7,6 +7,10 @@ const { userValidation } = require("../validations");
 
 router.route("/sign-up").post(checkSchema(userValidation.createUser), userController.createUser);
 
-router.route("/:userId").get().post();
+router
+  .route("/:userId")
+  .get(checkSchema(userValidation.paramsUserId), userController.getUser)
+  .put(checkSchema(userValidation.updateUser), userController.updateUser)
+  .delete(checkSchema(userValidation.paramsUserId), userController.deleteUser);
 
 module.exports = router;
