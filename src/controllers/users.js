@@ -43,9 +43,21 @@ const deleteUser = catchAsync(async (req, res) => {
   });
 });
 
+const getSchedulesByUserId = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const { date } = req.query;
+
+  await userService.getSchedulesByUserId(userId, date);
+
+  res.json({
+    result: "ok",
+  });
+});
+
 module.exports = {
   createUser,
   getUser,
   updateUser,
   deleteUser,
+  getSchedulesByUserId,
 };

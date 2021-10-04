@@ -1,4 +1,13 @@
-const { NOT_EMAIL, INVALID_EMAIL, NOT_ACCESS_TOKEN } = require("../constant/errorMsg");
+const {
+  NOT_EMAIL,
+  NOT_USER_ID,
+  NOT_ACCESS_TOKEN,
+  INVALID_EMAIL,
+  INVALID_MONGO_ID,
+  INVALID_DATE,
+  INVALID_BOOLEAN,
+  INVALID_NUMERIC,
+} = require("../constant/errorMsg");
 
 const createUser = {
   email: {
@@ -42,11 +51,11 @@ const createUser = {
 const paramsUserId = {
   userId: {
     notEmpty: {
-      errorMessage: NOT_EMAIL,
+      errorMessage: NOT_USER_ID,
       bail: true,
     },
-    isEmail: {
-      errorMessage: INVALID_EMAIL,
+    isMongoId: {
+      errorMessage: INVALID_MONGO_ID,
       bail: true,
     },
   },
@@ -55,17 +64,17 @@ const paramsUserId = {
 const updateUser = {
   userId: {
     notEmpty: {
-      errorMessage: NOT_EMAIL,
+      errorMessage: NOT_USER_ID,
       bail: true,
     },
-    isEmail: {
-      errorMessage: INVALID_EMAIL,
+    isMongoId: {
+      errorMessage: INVALID_MONGO_ID,
       bail: true,
     },
   },
   "workTime.startTime": {
     isISO8601: {
-      errorMessage: "startTime이 date 형식이 아닙니다.",
+      errorMessage: `startTime이 ${INVALID_DATE}`,
       bail: true,
     },
     optional: {
@@ -76,7 +85,7 @@ const updateUser = {
   },
   "workTime.endTime": {
     isDate: {
-      errorMessage: "endTime이 date 형식이 아닙니다.",
+      errorMessage: `endTime이 ${INVALID_DATE}`,
       bail: true,
     },
     optional: {
@@ -98,7 +107,7 @@ const updateUser = {
   },
   googleSync: {
     isBoolean: {
-      errorMessage: "googleSync가 boolean 형식이 아닙니다.",
+      errorMessage: `googleSync가 ${INVALID_BOOLEAN}`,
       bail: true,
     },
     optional: {
@@ -109,7 +118,31 @@ const updateUser = {
   },
   sleepTime: {
     isNumeric: {
-      errorMessage: "sleepTime이 number 형식이 아닙니다.",
+      errorMessage: `sleepTime이 ${INVALID_NUMERIC}`,
+      bail: true,
+    },
+    optional: {
+      options: {
+        checkFalsy: true,
+      },
+    },
+  },
+};
+
+const queryDate = {
+  userId: {
+    notEmpty: {
+      errorMessage: NOT_USER_ID,
+      bail: true,
+    },
+    isMongoId: {
+      errorMessage: INVALID_MONGO_ID,
+      bail: true,
+    },
+  },
+  date: {
+    isISO8601: {
+      errorMessage: `query date ${INVALID_DATE}`,
       bail: true,
     },
     optional: {
@@ -124,4 +157,5 @@ module.exports = {
   createUser,
   paramsUserId,
   updateUser,
+  queryDate,
 };

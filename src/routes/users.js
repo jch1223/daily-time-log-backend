@@ -13,4 +13,9 @@ router
   .put(checkSchema(userValidation.updateUser), userController.updateUser)
   .delete(checkSchema(userValidation.paramsUserId), userController.deleteUser);
 
+router
+  .route("/:userId/schedules")
+  .get(checkSchema(userValidation.queryDate), userController.getSchedulesByUserId)
+  .put(checkSchema(userValidation.updateUser), userController.getSchedulesByUserId);
+
 module.exports = router;

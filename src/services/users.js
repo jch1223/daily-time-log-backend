@@ -1,6 +1,6 @@
 const createError = require("http-errors");
 
-const { Users } = require("../models");
+const { Users, Schedules } = require("../models");
 const { ALREADY_SIGNED, NOT_SIGNED } = require("../constant/errorMsg");
 
 const createUser = async (userBody) => {
@@ -12,7 +12,7 @@ const createUser = async (userBody) => {
 };
 
 const getUser = async (userId) => {
-  const user = await Users.findOne({ email: userId }).lean().exec();
+  const user = await Users.findById(userId).lean().exec();
 
   if (!user) {
     throw createError(400, NOT_SIGNED);
@@ -22,7 +22,7 @@ const getUser = async (userId) => {
 };
 
 const updateUser = async (userId, userBody) => {
-  const user = await Users.findOneAndUpdate({ email: userId }, userBody).lean().exec();
+  const user = await Users.findByIdAndUpdate(userId, userBody).lean().exec();
 
   if (!user) {
     throw createError(400, NOT_SIGNED);
@@ -32,7 +32,7 @@ const updateUser = async (userId, userBody) => {
 };
 
 const deleteUser = async (userId, userBody) => {
-  const user = await Users.findOneAndDelete({ email: userId }, userBody).lean().exec();
+  const user = await Users.findByIdAndDelete(userId, userBody).lean().exec();
 
   if (!user) {
     throw createError(400, NOT_SIGNED);
@@ -41,9 +41,26 @@ const deleteUser = async (userId, userBody) => {
   return user;
 };
 
+const getSchedulesByUserId = async (userId, date) => {
+  const user = await Users.findById(userId).lean().exec();
+
+  if (!user) {
+    throw createError(400, NOT_SIGNED);
+  }
+
+  const schedulesDate = await Schedules.find({
+    userId,
+    start: { date: { $gte: new Date(date).toISOString() } },
+  });
+
+  console.log(schedulesDate);
+  return schedulesDate;
+};
+
 module.exports = {
   createUser,
   getUser,
   updateUser,
   deleteUser,
+  getSchedulesByUserId,
 };
