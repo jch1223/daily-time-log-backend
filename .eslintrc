@@ -10,10 +10,12 @@
   },
   "env": {
     "browser": false,
-    "node": true
+    "node": true,
+    "es6": true
   },
   "ignorePatterns": ["node_modules/"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
   }
 }

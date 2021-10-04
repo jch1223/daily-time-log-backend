@@ -1,13 +1,16 @@
 require("dotenv").config();
 
-var express = require("express");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const createError = require("http-errors");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 
-var app = express();
+const { errorHandler } = require("./middlewares/error");
+
+const app = express();
 
 require("./database/connection");
 
@@ -18,5 +21,11 @@ app.use(cookieParser());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+
+app.use((req, res, next) => {
+  next(createError(404));
+});
+
+app.use(errorHandler);
 
 module.exports = app;
