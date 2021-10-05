@@ -1,8 +1,8 @@
 const catchAsync = require("../utils/catchAsync");
-const { userService } = require("../services");
+const { usersService } = require("../services");
 
 const createUser = catchAsync(async (req, res) => {
-  const user = await userService.createUser(req.body);
+  const user = await usersService.createUser(req.body);
 
   res.json({
     result: "ok",
@@ -15,7 +15,7 @@ const createUser = catchAsync(async (req, res) => {
 const getUser = catchAsync(async (req, res) => {
   const { userId } = req.params;
 
-  const user = await userService.getUser(userId);
+  const user = await usersService.getUser(userId);
 
   res.json({
     result: "ok",
@@ -26,7 +26,7 @@ const getUser = catchAsync(async (req, res) => {
 const updateUser = catchAsync(async (req, res) => {
   const { userId } = req.params;
 
-  await userService.updateUser(userId, req.body);
+  await usersService.updateUser(userId, req.body);
 
   res.json({
     result: "ok",
@@ -36,7 +36,7 @@ const updateUser = catchAsync(async (req, res) => {
 const deleteUser = catchAsync(async (req, res) => {
   const { userId } = req.params;
 
-  await userService.deleteUser(userId);
+  await usersService.deleteUser(userId);
 
   res.json({
     result: "ok",
@@ -47,7 +47,7 @@ const getSchedulesByUserId = catchAsync(async (req, res) => {
   const { userId } = req.params;
   const { date } = req.query;
 
-  await userService.getSchedulesByUserId(userId, date);
+  await usersService.getSchedulesByUserId(userId, date);
 
   res.json({
     result: "ok",
@@ -57,7 +57,7 @@ const getSchedulesByUserId = catchAsync(async (req, res) => {
 const createSchedulesByUserId = catchAsync(async (req, res) => {
   const { userId } = req.params;
 
-  const schedule = await userService.createSchedulesByUserId(userId, req.body);
+  const schedule = await usersService.createSchedulesByUserId(userId, req.body);
 
   console.log(schedule);
 

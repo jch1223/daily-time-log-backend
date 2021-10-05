@@ -1,7 +1,7 @@
 const createError = require("http-errors");
 
 const { Users, Schedules } = require("../models");
-const { ALREADY_SIGNED, NOT_SIGNED } = require("../constant/errorMsg");
+const { ALREADY_SIGNED, NOT_SIGNED } = require("../constant/errorMessage/users");
 
 const createUser = async (userBody) => {
   if (await Users.isEmailTaken(userBody.email)) {
@@ -22,7 +22,7 @@ const getUser = async (userId) => {
 };
 
 const updateUser = async (userId, userBody) => {
-  const user = await Users.findByIdAndUpdate(userId, userBody).lean().exec();
+  const user = await Users.findByIdAndUpdate(userId, userBody, { new: true }).lean().exec();
 
   if (!user) {
     throw createError(400, NOT_SIGNED);
@@ -31,8 +31,8 @@ const updateUser = async (userId, userBody) => {
   return user;
 };
 
-const deleteUser = async (userId, userBody) => {
-  const user = await Users.findByIdAndDelete(userId, userBody).lean().exec();
+const deleteUser = async (userId) => {
+  const user = await Users.findByIdAndDelete(userId).lean().exec();
 
   if (!user) {
     throw createError(400, NOT_SIGNED);
