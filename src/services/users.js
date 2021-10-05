@@ -57,10 +57,24 @@ const getSchedulesByUserId = async (userId, date) => {
   return schedulesDate;
 };
 
+const createSchedulesByUserId = async (userId, scheduleBody) => {
+  const user = await Users.findById(userId).lean().exec();
+
+  if (!user) {
+    throw createError(400, NOT_SIGNED);
+  }
+
+  return Schedules.create({
+    userId,
+    ...scheduleBody,
+  });
+};
+
 module.exports = {
   createUser,
   getUser,
   updateUser,
   deleteUser,
   getSchedulesByUserId,
+  createSchedulesByUserId,
 };

@@ -54,10 +54,24 @@ const getSchedulesByUserId = catchAsync(async (req, res) => {
   });
 });
 
+const createSchedulesByUserId = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+
+  const schedule = await userService.createSchedulesByUserId(userId, req.body);
+
+  console.log(schedule);
+
+  res.json({
+    result: "ok",
+    data: schedule,
+  });
+});
+
 module.exports = {
   createUser,
   getUser,
   updateUser,
   deleteUser,
   getSchedulesByUserId,
+  createSchedulesByUserId,
 };

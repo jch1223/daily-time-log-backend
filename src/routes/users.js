@@ -16,6 +16,9 @@ router
 router
   .route("/:userId/schedules")
   .get(checkSchema(userValidation.queryDate), userController.getSchedulesByUserId)
-  .put(checkSchema(userValidation.updateUser), userController.getSchedulesByUserId);
+  .post(
+    checkSchema(userValidation.createSchedulesByUserId),
+    userController.createSchedulesByUserId,
+  );
 
 module.exports = router;
