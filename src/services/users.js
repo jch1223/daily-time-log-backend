@@ -1,6 +1,6 @@
 const createError = require("http-errors");
 
-const { Users, Schedules } = require("../models");
+const { Users, Schedules, Goals } = require("../models");
 const { ALREADY_SIGNED, NOT_SIGNED } = require("../constant/errorMessage/users");
 
 const createUser = async (userBody) => {
@@ -53,7 +53,6 @@ const getSchedulesByUserId = async (userId, date) => {
     start: { date: { $gte: new Date(date).toISOString() } },
   });
 
-  console.log(schedulesDate);
   return schedulesDate;
 };
 
@@ -70,6 +69,33 @@ const createSchedulesByUserId = async (userId, scheduleBody) => {
   });
 };
 
+const getGoalsByUserId = async (userId) => {
+  const user = await Users.findById(userId).lean().exec();
+
+  if (!user) {
+    throw createError(400, NOT_SIGNED);
+  }
+
+  const goalsData = await Goals.find({
+    userId,
+  });
+
+  return goalsData;
+};
+
+const createGoalsByUserId = async (userId, goalBody) => {
+  const user = await Users.findById(userId).lean().exec();
+
+  if (!user) {
+    throw createError(400, NOT_SIGNED);
+  }
+
+  return Goals.create({
+    userId,
+    ...goalBody,
+  });
+};
+
 module.exports = {
   createUser,
   getUser,
@@ -77,4 +103,6 @@ module.exports = {
   deleteUser,
   getSchedulesByUserId,
   createSchedulesByUserId,
+  getGoalsByUserId,
+  createGoalsByUserId,
 };

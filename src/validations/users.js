@@ -291,10 +291,51 @@ const createSchedulesByUserId = {
   },
 };
 
+const createGoalsByUserId = {
+  userId: {
+    notEmpty: {
+      errorMessage: NOT_USER_ID,
+      bail: true,
+    },
+    isMongoId: {
+      errorMessage: INVALID_MONGO_ID,
+      bail: true,
+    },
+  },
+  summary: {
+    notEmpty: {
+      errorMessage: NOT_SUMMARY,
+      bail: true,
+    },
+    isString: {
+      errorMessage: `summary가 ${INVALID_STRING}`,
+      bail: true,
+    },
+  },
+  done: {
+    default: { options: false },
+    isBoolean: {
+      errorMessage: `done이 ${INVALID_BOOLEAN}`,
+      bail: true,
+    },
+  },
+  isDeleted: {
+    default: { options: false },
+    isBoolean: {
+      errorMessage: `isDeleted가 ${INVALID_BOOLEAN}`,
+      bail: true,
+    },
+  },
+  runningGoals: {
+    default: { options: [] },
+  },
+};
+
 module.exports = {
   createUser,
   paramsUserId,
   updateUser,
   queryDate,
   createSchedulesByUserId,
+  createGoalsByUserId,
 };
