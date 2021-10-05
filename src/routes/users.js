@@ -21,4 +21,9 @@ router
     usersController.createSchedulesByUserId,
   );
 
+router
+  .route("/:userId/goals")
+  .get(checkSchema(usersValidation.queryDate), usersController.getGoalsByUserId)
+  .post(checkSchema(usersValidation.createGoalsByUserId), usersController.createGoalsByUserId);
+
 module.exports = router;

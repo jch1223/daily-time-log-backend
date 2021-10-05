@@ -47,10 +47,11 @@ const getSchedulesByUserId = catchAsync(async (req, res) => {
   const { userId } = req.params;
   const { date } = req.query;
 
-  await usersService.getSchedulesByUserId(userId, date);
+  const schedule = await usersService.getSchedulesByUserId(userId, date);
 
   res.json({
     result: "ok",
+    data: schedule,
   });
 });
 
@@ -59,11 +60,32 @@ const createSchedulesByUserId = catchAsync(async (req, res) => {
 
   const schedule = await usersService.createSchedulesByUserId(userId, req.body);
 
-  console.log(schedule);
-
   res.json({
     result: "ok",
     data: schedule,
+  });
+});
+
+const getGoalsByUserId = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const { date } = req.query;
+
+  const goal = await usersService.getGoalsByUserId(userId, date);
+
+  res.json({
+    result: "ok",
+    data: goal,
+  });
+});
+
+const createGoalsByUserId = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+
+  const goal = await usersService.createGoalsByUserId(userId, req.body);
+
+  res.json({
+    result: "ok",
+    data: goal,
   });
 });
 
@@ -74,4 +96,6 @@ module.exports = {
   deleteUser,
   getSchedulesByUserId,
   createSchedulesByUserId,
+  getGoalsByUserId,
+  createGoalsByUserId,
 };
