@@ -22,7 +22,7 @@ const MilestoneSchema = new mongoose.Schema(
     runningTimes: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Goal",
+        ref: "Goals",
       },
     ],
   },

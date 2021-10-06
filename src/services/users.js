@@ -1,6 +1,6 @@
 const createError = require("http-errors");
 
-const { Users, Schedules, Milestone } = require("../models");
+const { Users, Schedules, Milestones } = require("../models");
 const { ALREADY_SIGNED, NOT_SIGNED } = require("../constant/errorMessage/users");
 
 const createUser = async (userBody) => {
@@ -76,7 +76,7 @@ const getMilestonesByUserId = async (userId) => {
     throw createError(400, NOT_SIGNED);
   }
 
-  const milestoneData = await Milestone.find({
+  const milestoneData = await Milestones.find({
     userId,
   });
 
@@ -90,7 +90,7 @@ const createMilestonesByUserId = async (userId, milestoneBody) => {
     throw createError(400, NOT_SIGNED);
   }
 
-  return Milestone.create({
+  return Milestones.create({
     userId,
     ...milestoneBody,
   });
