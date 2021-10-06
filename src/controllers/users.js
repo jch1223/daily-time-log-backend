@@ -66,26 +66,26 @@ const createSchedulesByUserId = catchAsync(async (req, res) => {
   });
 });
 
-const getGoalsByUserId = catchAsync(async (req, res) => {
+const getMilestonesByUserId = catchAsync(async (req, res) => {
   const { userId } = req.params;
   const { date } = req.query;
 
-  const goal = await usersService.getGoalsByUserId(userId, date);
+  const milestone = await usersService.getMilestoneByUserId(userId, date);
 
   res.json({
     result: "ok",
-    data: goal,
+    data: milestone,
   });
 });
 
-const createGoalsByUserId = catchAsync(async (req, res) => {
+const createMilestonesByUserId = catchAsync(async (req, res) => {
   const { userId } = req.params;
 
-  const goal = await usersService.createGoalsByUserId(userId, req.body);
+  const milestone = await usersService.createMilestonesByUserId(userId, req.body);
 
   res.json({
     result: "ok",
-    data: goal,
+    data: milestone,
   });
 });
 
@@ -96,6 +96,6 @@ module.exports = {
   deleteUser,
   getSchedulesByUserId,
   createSchedulesByUserId,
-  getGoalsByUserId,
-  createGoalsByUserId,
+  getMilestonesByUserId,
+  createMilestonesByUserId,
 };

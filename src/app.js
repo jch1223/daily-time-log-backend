@@ -8,6 +8,7 @@ const createError = require("http-errors");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const schedulesRouter = require("./routes/schedules");
+const milestonesRouter = require("./routes/milestones");
 const goalsRouter = require("./routes/goals");
 
 const { errorHandler } = require("./middlewares/error");
@@ -24,6 +25,7 @@ app.use(cookieParser());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/schedules", schedulesRouter);
+app.use("/milestones", milestonesRouter);
 app.use("/goals", goalsRouter);
 
 app.use((req, res, next) => {

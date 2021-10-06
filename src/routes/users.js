@@ -22,8 +22,11 @@ router
   );
 
 router
-  .route("/:userId/goals")
-  .get(checkSchema(usersValidation.queryDate), usersController.getGoalsByUserId)
-  .post(checkSchema(usersValidation.createGoalsByUserId), usersController.createGoalsByUserId);
+  .route("/:userId/milestones")
+  .get(checkSchema(usersValidation.queryDate), usersController.getMilestonesByUserId)
+  .post(
+    checkSchema(usersValidation.createMilestonesByUserId),
+    usersController.createMilestonesByUserId,
+  );
 
 module.exports = router;
