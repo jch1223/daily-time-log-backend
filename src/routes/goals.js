@@ -2,12 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { checkSchema } = require("express-validator");
 
-const { goalsValidation } = require("../validations");
-const { goalsController } = require("../controllers");
+const { runningMilestoneValidation } = require("../validations");
+const { runningMilestoneController } = require("../controllers");
 
-router
-  .route("/:goalId")
-  .put(checkSchema(goalsValidation.updateGoal), goalsController.updateGoal)
-  .delete(checkSchema(goalsValidation.paramsGoalId), goalsController.deleteGoal);
+router.route("/:milestoneId").post().put().delete();
 
 module.exports = router;

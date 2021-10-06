@@ -1,23 +1,31 @@
+const Goals = require("../models/Goals");
 const createError = require("http-errors");
 
-const { Goals } = require("../models");
-const { NOT_GOAL } = require("../constant/errorMessage/goals");
+const { NOT_GOALS } = require("../constant/errorMessage/goals");
 
-const updateGoal = async (goalId, userBody) => {
-  const goal = await Goals.findByIdAndUpdate(goalId, userBody, { new: true }).lean().exec();
+const createGoal = async (milestoneId, goalBody) => {
+  return Goals.create({
+    milestoneId,
+    ...goalBody,
+  });
+};
+
+const updateGoal = async (goalId, goalBody) => {
+  const goal = await Goals.findByIdAndUpdate(goalId, goalBody, { new: true }).lean().exec();
 
   if (!goal) {
-    throw createError(400, NOT_GOAL);
+    throw createError(400, NOT_GOALS);
   }
 
   return goal;
 };
 
 const deleteGoal = async (goalId) => {
-  return Goals.findByIdAndDelete(goalId).lean().exec();
+  return Goals.findByIdAndUpdate(goalId, { isDeleted: true }).lean().exec();
 };
 
 module.exports = {
+  createGoal,
   updateGoal,
   deleteGoal,
 };

@@ -1,15 +1,14 @@
 const mongoose = require("mongoose");
 
-const GoalsSchema = new mongoose.Schema(
+const GoalSchema = new mongoose.Schema(
   {
-    userId: {
+    milestoneId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Users",
+      ref: "Milestone",
       required: true,
     },
     done: {
       type: Boolean,
-      required: true,
     },
     summary: {
       type: String,
@@ -17,18 +16,33 @@ const GoalsSchema = new mongoose.Schema(
     },
     isDeleted: {
       type: Boolean,
-      required: true,
     },
-    runningTimes: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "RunningGoals",
+    start: {
+      date: {
+        type: Date,
       },
-    ],
+      dateTime: {
+        type: Date,
+      },
+      timeZone: {
+        type: String,
+      },
+    },
+    end: {
+      date: {
+        type: Date,
+      },
+      dateTime: {
+        type: Date,
+      },
+      timeZone: {
+        type: String,
+      },
+    },
   },
   {
     timestamps: true,
   },
 );
 
-module.exports = mongoose.model("Goals", GoalsSchema);
+module.exports = mongoose.model("Goals", GoalSchema);

@@ -291,7 +291,7 @@ const createSchedulesByUserId = {
   },
 };
 
-const createGoalsByUserId = {
+const createMilestonesByUserId = {
   userId: {
     notEmpty: {
       errorMessage: NOT_USER_ID,
@@ -326,7 +326,7 @@ const createGoalsByUserId = {
       bail: true,
     },
   },
-  runningGoals: {
+  runningMilestone: {
     default: { options: [] },
   },
 };
@@ -337,5 +337,5 @@ module.exports = {
   updateUser,
   queryDate,
   createSchedulesByUserId,
-  createGoalsByUserId,
+  createMilestonesByUserId,
 };

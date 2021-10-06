@@ -1,3 +1,4 @@
 module.exports.usersValidation = require("./users");
 module.exports.schedulesValidation = require("./schedules");
-module.exports.goalsValidation = require("./goals");
+module.exports.milestonesValidation = require("./milestones");
+module.exports.runningMilestoneValidation = require("./goals");

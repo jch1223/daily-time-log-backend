@@ -1,6 +1,6 @@
 const createError = require("http-errors");
 
-const { Users, Schedules, Goals } = require("../models");
+const { Users, Schedules, Milestone } = require("../models");
 const { ALREADY_SIGNED, NOT_SIGNED } = require("../constant/errorMessage/users");
 
 const createUser = async (userBody) => {
@@ -69,30 +69,30 @@ const createSchedulesByUserId = async (userId, scheduleBody) => {
   });
 };
 
-const getGoalsByUserId = async (userId) => {
+const getMilestonesByUserId = async (userId) => {
   const user = await Users.findById(userId).lean().exec();
 
   if (!user) {
     throw createError(400, NOT_SIGNED);
   }
 
-  const goalsData = await Goals.find({
+  const milestoneData = await Milestone.find({
     userId,
   });
 
-  return goalsData;
+  return milestoneData;
 };
 
-const createGoalsByUserId = async (userId, goalBody) => {
+const createMilestonesByUserId = async (userId, milestoneBody) => {
   const user = await Users.findById(userId).lean().exec();
 
   if (!user) {
     throw createError(400, NOT_SIGNED);
   }
 
-  return Goals.create({
+  return Milestone.create({
     userId,
-    ...goalBody,
+    ...milestoneBody,
   });
 };
 
@@ -103,6 +103,6 @@ module.exports = {
   deleteUser,
   getSchedulesByUserId,
   createSchedulesByUserId,
-  getGoalsByUserId,
-  createGoalsByUserId,
+  getMilestonesByUserId,
+  createMilestonesByUserId,
 };
