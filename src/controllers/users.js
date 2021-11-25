@@ -70,7 +70,7 @@ const getMilestonesByUserId = catchAsync(async (req, res) => {
   const { userId } = req.params;
   const { date } = req.query;
 
-  const milestone = await usersService.getMilestoneByUserId(userId, date);
+  const milestone = await usersService.getMilestonesByUserId(userId, date);
 
   res.json({
     result: "ok",

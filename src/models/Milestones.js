@@ -2,22 +2,26 @@ const mongoose = require("mongoose");
 
 const MilestoneSchema = new mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Users",
+    id: {
+      type: String,
       required: true,
     },
-    done: {
-      type: Boolean,
+    userEmail: {
+      type: String,
+      ref: "Users",
       required: true,
     },
     summary: {
       type: String,
       required: true,
     },
+    color: {
+      type: String,
+      required: true,
+    },
     isDeleted: {
       type: Boolean,
-      required: true,
+      default: false,
     },
     runningTimes: [
       {

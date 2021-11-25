@@ -39,12 +39,6 @@ const createUser = {
       },
     },
   },
-  accessToken: {
-    notEmpty: {
-      errorMessage: NOT_ACCESS_TOKEN,
-      bail: true,
-    },
-  },
   googleSync: {
     default: { options: false },
   },

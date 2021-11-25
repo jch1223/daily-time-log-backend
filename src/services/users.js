@@ -1,11 +1,32 @@
 const createError = require("http-errors");
 
 const { Users, Schedules, Milestones } = require("../models");
-const { ALREADY_SIGNED, NOT_SIGNED } = require("../constant/errorMessage/users");
+const { NOT_SIGNED } = require("../constant/errorMessage/users");
 
 const createUser = async (userBody) => {
-  if (await Users.isEmailTaken(userBody.email)) {
-    throw createError(400, ALREADY_SIGNED);
+  const bulkData = [];
+
+  for (let i = 0; i < userBody.mileStones.length; i += 1) {
+    const milestone = userBody.mileStones[i];
+
+    bulkData.push({
+      updateOne: {
+        filter: { id: userBody.id },
+        update: {
+          ...milestone,
+        },
+        upsert: true,
+      },
+    });
+  }
+
+  const milestoneData = await Milestones.bulkWrite(bulkData);
+  const user = await Users.isEmailTaken(userBody.email);
+
+  console.log(milestoneData);
+
+  if (user) {
+    return user;
   }
 
   return Users.create(userBody);

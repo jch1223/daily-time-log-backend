@@ -37,8 +37,7 @@ const UsersSchema = new mongoose.Schema(
 );
 
 UsersSchema.statics.isEmailTaken = async function (email) {
-  const user = await this.findOne({ email });
-  return !!user;
+  return await this.findOne({ email });
 };
 
 module.exports = mongoose.model("Users", UsersSchema);
