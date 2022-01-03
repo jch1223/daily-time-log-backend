@@ -11,7 +11,7 @@ const createUser = async (userBody) => {
 
     bulkData.push({
       updateOne: {
-        filter: { id: userBody.id },
+        filter: { id: milestone.id },
         update: {
           ...milestone,
         },
@@ -20,12 +20,12 @@ const createUser = async (userBody) => {
     });
   }
 
-  const milestoneData = await Milestones.bulkWrite(bulkData);
+  await Milestones.bulkWrite(bulkData);
+
   const user = await Users.isEmailTaken(userBody.email);
 
-  console.log(milestoneData);
-
   if (user) {
+    user.mileStones = await Milestones.find({ userEmail: userBody.email });
     return user;
   }
 
@@ -105,14 +105,14 @@ const getMilestonesByUserId = async (userId) => {
 };
 
 const createMilestonesByUserId = async (userId, milestoneBody) => {
-  const user = await Users.findById(userId).lean().exec();
+  const user = await Users.findOne({ email: userId }).lean().exec();
 
   if (!user) {
     throw createError(400, NOT_SIGNED);
   }
 
   return Milestones.create({
-    userId,
+    userEmail: userId,
     ...milestoneBody,
   });
 };

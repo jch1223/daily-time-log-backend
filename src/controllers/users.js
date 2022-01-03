@@ -1,14 +1,12 @@
 const catchAsync = require("../utils/catchAsync");
 const { usersService } = require("../services");
 
-const createUser = catchAsync(async (req, res) => {
+const signIn = catchAsync(async (req, res) => {
   const user = await usersService.createUser(req.body);
 
   res.json({
     result: "ok",
-    data: {
-      userId: user._id,
-    },
+    data: user,
   });
 });
 
@@ -90,7 +88,7 @@ const createMilestonesByUserId = catchAsync(async (req, res) => {
 });
 
 module.exports = {
-  createUser,
+  signIn,
   getUser,
   updateUser,
   deleteUser,

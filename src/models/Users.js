@@ -10,25 +10,11 @@ const UsersSchema = new mongoose.Schema(
     name: {
       type: String,
     },
-    themeColor: {
+    themeMode: {
       type: String,
     },
-    workTime: {
-      startTime: {
-        type: Date,
-      },
-      endTime: {
-        type: Date,
-      },
-    },
-    accessToken: {
-      type: String,
-    },
-    googleSync: {
-      type: Boolean,
-    },
-    sleepTime: {
-      type: Number,
+    mileStones: {
+      type: Array,
     },
   },
   {

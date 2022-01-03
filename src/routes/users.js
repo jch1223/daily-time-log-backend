@@ -5,7 +5,7 @@ const { checkSchema } = require("express-validator");
 const { usersController } = require("../controllers");
 const { usersValidation } = require("../validations");
 
-router.route("/sign-up").post(checkSchema(usersValidation.createUser), usersController.createUser);
+router.route("/sign-in").post(checkSchema(usersValidation.signIn), usersController.signIn);
 
 router
   .route("/:userId")

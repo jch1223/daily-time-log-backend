@@ -14,7 +14,7 @@ const {
   NOT_SUMMARY,
 } = require("../constant/errorMessage/users");
 
-const createUser = {
+const signIn = {
   email: {
     notEmpty: {
       errorMessage: NOT_EMAIL,
@@ -28,22 +28,8 @@ const createUser = {
   name: {
     default: { options: null },
   },
-  themeColor: {
-    default: { options: "white" },
-  },
-  workTime: {
-    default: {
-      options: {
-        startTime: null,
-        endTime: null,
-      },
-    },
-  },
-  googleSync: {
-    default: { options: false },
-  },
-  sleepTime: {
-    default: { options: 0 },
+  themeMode: {
+    default: { options: "light" },
   },
 };
 
@@ -291,8 +277,8 @@ const createMilestonesByUserId = {
       errorMessage: NOT_USER_ID,
       bail: true,
     },
-    isMongoId: {
-      errorMessage: INVALID_MONGO_ID,
+    isEmail: {
+      errorMessage: INVALID_EMAIL,
       bail: true,
     },
   },
@@ -326,7 +312,7 @@ const createMilestonesByUserId = {
 };
 
 module.exports = {
-  createUser,
+  signIn,
   paramsUserId,
   updateUser,
   queryDate,
