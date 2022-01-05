@@ -1,18 +1,10 @@
-const {
-  INVALID_MONGO_ID,
-  INVALID_BOOLEAN,
-  INVALID_STRING,
-} = require("../constant/errorMessage/invalid");
+const { INVALID_BOOLEAN, INVALID_STRING } = require("../constant/errorMessage/invalid");
 const { NOT_MILESTONE_ID, NOT_SUMMARY } = require("../constant/errorMessage/milestones");
 
 const paramsMilestoneId = {
   milestoneId: {
     notEmpty: {
       errorMessage: NOT_MILESTONE_ID,
-      bail: true,
-    },
-    isMongoId: {
-      errorMessage: INVALID_MONGO_ID,
       bail: true,
     },
   },
@@ -22,10 +14,6 @@ const updateMilestone = {
   milestoneId: {
     notEmpty: {
       errorMessage: NOT_MILESTONE_ID,
-      bail: true,
-    },
-    isMongoId: {
-      errorMessage: INVALID_MONGO_ID,
       bail: true,
     },
   },

@@ -1,10 +1,10 @@
 const createError = require("http-errors");
 
-const { Milestone } = require("../models");
+const { Milestones } = require("../models");
 const { NOT_MILESTONE } = require("../constant/errorMessage/milestones");
 
 const updateMilestone = async (milestoneId, userBody) => {
-  const milestone = await Milestone.findByIdAndUpdate(milestoneId, userBody, { new: true })
+  const milestone = await Milestones.findOneAndUpdate({ id: milestoneId }, userBody, { new: true })
     .lean()
     .exec();
 
@@ -16,7 +16,7 @@ const updateMilestone = async (milestoneId, userBody) => {
 };
 
 const deleteMilestone = async (milestoneId) => {
-  return Milestone.findByIdAndUpdate(milestoneId, { isDeleted: true }).lean().exec();
+  return Milestones.findOneAndUpdate({ id: milestoneId }, { isDeleted: true }).lean().exec();
 };
 
 module.exports = {
