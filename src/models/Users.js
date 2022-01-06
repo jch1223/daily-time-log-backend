@@ -13,9 +13,12 @@ const UsersSchema = new mongoose.Schema(
     themeMode: {
       type: String,
     },
-    mileStones: {
-      type: Array,
-    },
+    milestones: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Milestones",
+      },
+    ],
   },
   {
     timestamps: true,

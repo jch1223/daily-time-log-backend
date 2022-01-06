@@ -306,7 +306,7 @@ const createMilestonesByUserId = {
       bail: true,
     },
   },
-  runningTimes: {
+  runningTimesIds: {
     default: { options: [] },
   },
 };

@@ -22,8 +22,7 @@ const createUser = async (userBody) => {
 
   await Milestones.bulkWrite(bulkData);
 
-  const user = await Users.isEmailTaken(userBody.email);
-
+  const user = await Users.findOne({ email: userBody.email }).populate("milestones");
   if (user) {
     user.mileStones = await Milestones.find({ userEmail: userBody.email });
     return user;
@@ -105,16 +104,21 @@ const getMilestonesByUserId = async (userId) => {
 };
 
 const createMilestonesByUserId = async (userId, milestoneBody) => {
-  const user = await Users.findOne({ email: userId }).lean().exec();
+  const user = await Users.findOne({ email: userId }).exec();
 
   if (!user) {
     throw createError(400, NOT_SIGNED);
   }
 
-  return Milestones.create({
+  const milestoneData = await Milestones.create({
     userEmail: userId,
     ...milestoneBody,
   });
+
+  user.milestones.push(milestoneData._id);
+  await user.save();
+
+  return milestoneData;
 };
 
 module.exports = {
