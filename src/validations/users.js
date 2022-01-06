@@ -52,8 +52,8 @@ const updateUser = {
       errorMessage: NOT_USER_ID,
       bail: true,
     },
-    isMongoId: {
-      errorMessage: INVALID_MONGO_ID,
+    isEmail: {
+      errorMessage: INVALID_EMAIL,
       bail: true,
     },
   },
@@ -306,7 +306,7 @@ const createMilestonesByUserId = {
       bail: true,
     },
   },
-  runningTimesIds: {
+  runningTimes: {
     default: { options: [] },
   },
 };

@@ -31,27 +31,6 @@ const createGoal = {
       bail: true,
     },
   },
-  summary: {
-    notEmpty: {
-      errorMessage: NOT_SUMMARY,
-      bail: true,
-    },
-    isString: {
-      errorMessage: `summary가 ${INVALID_STRING}`,
-      bail: true,
-    },
-  },
-  done: {
-    isBoolean: {
-      errorMessage: `done이 ${INVALID_BOOLEAN}`,
-      bail: true,
-    },
-    optional: {
-      options: {
-        checkFalsy: true,
-      },
-    },
-  },
   isDeleted: {
     default: { options: false },
   },

@@ -1,6 +1,16 @@
 const catchAsync = require("../utils/catchAsync");
 const { goalsService } = require("../services");
 
+const getGoalsByDate = catchAsync(async (req, res) => {
+  const { startDate, endDate } = req.query;
+  const goals = await goalsService.getGoalsByDate(startDate, endDate);
+
+  res.json({
+    result: "ok",
+    runningTimes: goals,
+  });
+});
+
 const createGoal = catchAsync(async (req, res) => {
   const { milestoneId } = req.params;
 
@@ -34,6 +44,7 @@ const deleteGoal = catchAsync(async (req, res) => {
 });
 
 module.exports = {
+  getGoalsByDate,
   createGoal,
   updateGoal,
   deleteGoal,

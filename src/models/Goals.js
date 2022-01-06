@@ -2,40 +2,24 @@ const mongoose = require("mongoose");
 
 const GoalsSchema = new mongoose.Schema(
   {
-    milestoneId: {
+    milestone: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Milestone",
+      ref: "Milestones",
       required: true,
-    },
-    done: {
-      type: Boolean,
-    },
-    summary: {
-      type: String,
-      required: true,
-    },
-    isDeleted: {
-      type: Boolean,
     },
     start: {
-      date: {
-        type: Date,
-      },
       dateTime: {
-        type: Date,
+        type: String,
       },
-      timeZone: {
+      timezone: {
         type: String,
       },
     },
     end: {
-      date: {
-        type: Date,
-      },
       dateTime: {
-        type: Date,
+        type: String,
       },
-      timeZone: {
+      timezone: {
         type: String,
       },
     },

@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 
 const MilestoneSchema = new mongoose.Schema(
   {
-    id: {
-      type: String,
-      required: true,
-    },
     userEmail: {
       type: String,
       ref: "Users",
@@ -23,7 +19,7 @@ const MilestoneSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    runningTimesIds: [
+    runningTimes: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Goals",

@@ -2,12 +2,31 @@ const Goals = require("../models/Goals");
 const createError = require("http-errors");
 
 const { NOT_GOALS } = require("../constant/errorMessage/goals");
+const Milestones = require("../models/Milestones");
+
+const getGoalsByDate = async (startDate, endDate) => {
+  const goals = await Goals.find({
+    "start.dateTime": {
+      $gte: startDate,
+      $lt: endDate,
+    },
+  }).populate("milestone");
+
+  return goals;
+};
 
 const createGoal = async (milestoneId, goalBody) => {
-  return Goals.create({
-    milestoneId,
+  const milestone = await Milestones.findById(milestoneId).exec();
+  const goals = await Goals.create({
     ...goalBody,
+    milestone: milestoneId,
   });
+
+  milestone.runningTimes.push(goals._id);
+  await milestone.save();
+  await goals.populate("milestone");
+
+  return goals;
 };
 
 const updateGoal = async (goalId, goalBody) => {
@@ -25,6 +44,7 @@ const deleteGoal = async (goalId) => {
 };
 
 module.exports = {
+  getGoalsByDate,
   createGoal,
   updateGoal,
   deleteGoal,
