@@ -4,24 +4,6 @@ const { Users, Schedules, Milestones } = require("../models");
 const { NOT_SIGNED } = require("../constant/errorMessage/users");
 
 const createUser = async (userBody) => {
-  const bulkData = [];
-
-  for (let i = 0; i < userBody.mileStones.length; i += 1) {
-    const milestone = userBody.mileStones[i];
-
-    bulkData.push({
-      updateOne: {
-        filter: { id: milestone.id },
-        update: {
-          ...milestone,
-        },
-        upsert: true,
-      },
-    });
-  }
-
-  await Milestones.bulkWrite(bulkData);
-
   const user = await Users.findOne({ email: userBody.email }).populate("milestones");
 
   if (user) {
